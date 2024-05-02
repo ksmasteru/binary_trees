@@ -34,7 +34,7 @@ t_root *insert(t_root **root, int data)
   {
     (*root)->right = insert(&((*root)->right), data);
   }
-  else if (data < (*root)->data)
+  else if (data <= (*root)->data)
   {
     (*root)->left = insert(&((*root)->left), data);
   }
