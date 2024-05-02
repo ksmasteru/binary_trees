@@ -40,7 +40,7 @@ t_root *insert(t_root **root, int data)
   }
   return (*root);
 }
-int main(int ac, char **av)
+/*int main(int ac, char **av)
 {
   t_root *root = NULL;
   insert(&root, 5);
@@ -48,4 +48,4 @@ int main(int ac, char **av)
   insert(&root, 2);
   insert(&root, 20);
   searchBinary(&root, atoi(av[1]));
-}
+}*/
