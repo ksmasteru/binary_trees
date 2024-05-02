@@ -7,33 +7,33 @@ typedef struct s_node{
   struct s_node *right;
 }t_node;
 
-t_node *insert(t_node *root, int data)
+t_node *insert(t_node **root, int data)
 {
-  if (root == NULL)
+  if (*root == NULL)
   {
-    root = malloc(sizeof(t_node));
-    root->data = data;
-    root->left = NULL;
-    root->right = NULL;
-    return (root);
+    (*root) = malloc(sizeof(t_node));
+    (*root)->data = data;
+    (*root)->left = NULL;
+    (*root)->right = NULL;
+    return (*root);
   }
-  if (data > root->data) /* traveling right*/
+  if (data > (*root)->data) /* traveling right*/
   {
-    root->right = insert(root->right, data);
+    (*root)->right = insert(&((*root)->right), data);
   }
-  else if (data < root->data)
+  else if (data < (*root)->data)
   {
-    root->left = insert(root->left, data);
+    (*root)->left = insert(&((*root)->left), data);
   }
-  return (root);
+  return (*root);
 }
 int main()
 {
-  t_node *root;
-  root = insert(0, 15);
-  insert(root, 5);
-  insert(root, 10);
-  insert(root, 2);
-  printf("%d", root->left->left->data);
+  t_node *root = NULL;
+  insert(&root, 5);
+  insert(&root, 10);
+  insert(&root, 2);
+  insert(&root, 20);
+  printf("%d", root->right->data);
 
 } 
