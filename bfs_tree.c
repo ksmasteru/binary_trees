@@ -34,17 +34,19 @@ t_root *insert(t_root **root, int data)
 
 }
 
-t_queue *new_follower(t_queue **prev, t_root *addr)
+t_queue *new_follower(t_queue **head, t_queue **prev, t_root *addr)
 {
     t_queue *new;
 
-    if (*prev == NULL)
+    if (*head == NULL)
     {
         new = malloc(sizeof(t_queue));
         if (!new)
             return (NULL);
         new->addr = addr;
         new->next = NULL;
+        *head = new;
+        *prev = new;
         return (new);
     }
     new = malloc(sizeof(t_queue));
@@ -53,6 +55,7 @@ t_queue *new_follower(t_queue **prev, t_root *addr)
     (*prev)->next = new;
     new->addr = addr;
     new->next = NULL;
+    *prev = new;
     return (new);
 }
 t_queue *pop(t_queue **head)
@@ -74,30 +77,24 @@ void bfs(t_root **root)
     t_root *tmp;
 
     prev = NULL;
+    head = NULL;
     if ((*root) != NULL)
     {
-        head = new_follower(&prev, (*root)->left);
+
+        new_follower(&head, &prev, *root);
         prev = head;
-        new = new_follower(&prev, (*root)->right);
-        prev = new;
-        printf("%d\n", (*root)->data);
     }
     while (head != NULL)
     {
         current = pop(&head);
-        if (current == NULL) /*make better break condition*/
+        if (current == NULL) 
             break;
         *root = current->addr;
-        //printf("%p\n", *root);
         if (*root != NULL)
         {
             printf("%d\n", (*root)->data);
-            new = new_follower(&prev, (*root)->left);
-            //printf("new lined node adress %p and its root adress is %p\n", new, new->addr);
-            prev = new;
-            new = new_follower(&prev, (*root)->right);
-            //printf("new lined node adress %p and its root right adress is %p\n", new, new->addr);
-            prev = new;
+            new = new_follower(&head, &prev, (*root)->left);
+            new = new_follower(&head, &prev, (*root)->right);
         }
     }
 }
