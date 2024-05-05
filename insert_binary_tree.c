@@ -16,7 +16,7 @@ t_node *insert(t_node **root, int data)
     (*root)->left = NULL;
     (*root)->right = NULL;
     return (*root);
-  }*
+  }
   if (data > (*root)->data) /* traveling right*/
   {
     (*root)->right = insert(&((*root)->right), data);
