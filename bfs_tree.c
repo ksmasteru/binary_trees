@@ -8,6 +8,8 @@ typedef struct s_queue{
     struct s_queue *next;
 }t_queue;
 
+
+
 t_root *insert(t_root **root, int data)
 {
     if (*root == NULL)
@@ -68,6 +70,8 @@ t_queue *pop(t_queue **head)
     (*head) = (*head)->next;
     return (tmp);
 }
+
+
 void bfs(t_root **root)
 {
     t_queue *head;
@@ -80,7 +84,6 @@ void bfs(t_root **root)
     head = NULL;
     if ((*root) != NULL)
     {
-
         new_follower(&head, &prev, *root);
         prev = head;
     }
@@ -110,7 +113,9 @@ int main(int ac, char **av)
         return (0);
     while ( i++ < ac - 1)
         insert(&root, atoi(av[i]));
+    printf("breadth first seatch \n");
     bfs(&root);
     // now print all data in the nodes using breadth first search
-    
+    //printf("deepth first search preorder\n");
+    //pre_order_traversal(&root);   
 }
